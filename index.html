@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokedex</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <section>
+    <form id="formulario-busqueda">
+      <div class="contenedor-busqueda">
+        <label for="entrada-busqueda">Buscar Pokémon:</label>
+        <input type="text" id="entrada-busqueda" placeholder="Escribe al menos 3 letras...">
+        <div class="filtros">
+          <label for="selector-tipo">Tipo:</label>
+          <select id="selector-tipo">
+            <option value="">Cualquiera</option>
+            <option value="normal">Normal</option>
+            <option value="fighting">Lucha</option>
+            <option value="flying">Volador</option>
+            <option value="poison">Veneno</option>
+            <option value="ground">Tierra</option>
+            <option value="rock">Roca</option>
+            <option value="bug">Bicho</option>
+            <option value="ghost">Fantasma</option>
+            <option value="steel">Acero</option>
+            <option value="fire">Fuego</option>
+            <option value="water">Agua</option>
+            <option value="grass">Planta</option>
+            <option value="electric">Eléctrico</option>
+            <option value="psychic">Psíquico</option>
+            <option value="ice">Hielo</option>
+            <option value="dragon">Dragón</option>
+            <option value="dark">Siniestro</option>
+            <option value="fairy">Hada</option>
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <div id="contenedor-resultados">
+      <h1 id="nombre-pokemon">Pokémon: </h1>
+      <ul class="lista-datos">
+        <li id="dato-nombre">Nombre: </li>
+        <li id="dato-altura">Altura: </li>
+        <li id="dato-peso">Peso: </li>
+        <li id="dato-tipos">Tipos: </li>
+        <li id="contenedor-imagen"></li>
+      </ul>
+    </div>
+  </section>
+</main>
+<script src="fechtapi.js"></script>
+</body>
+</html>
