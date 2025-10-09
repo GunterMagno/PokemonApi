@@ -151,6 +151,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
         popup.style.display = 'flex';
     }
+    //Pilla todos los datos y contenedores para mostrarlos en el html
+    function mostrarDatos(datos) {
+        document.getElementById('nombre-pokemon').textContent = `Pokémon: ${datos.name.toUpperCase()}`;
+        document.getElementById('dato-nombre').textContent = `Nombre: ${datos.name.charAt(0).toUpperCase() + datos.name.slice(1)}`;
+        document.getElementById('dato-altura').textContent = `Altura: ${datos.height / 10}m`;
+        document.getElementById('dato-peso').textContent = `Peso: ${datos.weight / 10}kg`;
+
+        const contenedorTipos = document.getElementById('dato-tipos');
+        contenedorTipos.innerHTML = 'Tipos: ';
+
+        datos.types.forEach(tipo => {
+            const tipoSpan = document.createElement('span');
+            tipoSpan.className = `tipo ${tipo.type.name}`;
+            tipoSpan.textContent = tiposTraducidos[tipo.type.name];
+            contenedorTipos.appendChild(tipoSpan);
+        });
+
+        const contenedorImagen = document.getElementById('contenedor-imagen');
+        contenedorImagen.innerHTML = '';
+        const imagen = document.createElement('img');
+        imagen.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${datos.id}.png`;
+        imagen.alt = datos.name;
+        imagen.style.maxWidth = '300px';
+        imagen.style.height = 'auto';
+        imagen.style.cursor = 'pointer';
+        contenedorImagen.appendChild(imagen);
+
+        contenedorResultados.style.display = 'block';
+    }
 
     // Mostrar Pokémon seleccionado
     function mostrarPokemon(nombrePokemon) {
@@ -162,37 +191,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 return response.json();
             })
             .then(datos => {
-                document.getElementById('nombre-pokemon').textContent = `Pokémon: ${datos.name.toUpperCase()}`;
-                document.getElementById('dato-nombre').textContent = `Nombre: ${datos.name.charAt(0).toUpperCase() + datos.name.slice(1)}`;
-                document.getElementById('dato-altura').textContent = `Altura: ${datos.height / 10}m`;
-                document.getElementById('dato-peso').textContent = `Peso: ${datos.weight / 10}kg`;
+                mostrarDatos(datos)
 
-                const contenedorTipos = document.getElementById('dato-tipos');
-                contenedorTipos.innerHTML = 'Tipos: ';
+                //Nueva actualización
+                contenedorImagen.addEventListener('click', () => {
+                    crearPaginaNueva(datos)
+                })
 
-                datos.types.forEach(tipo => {
-                    const tipoSpan = document.createElement('span');
-                    tipoSpan.className = `tipo ${tipo.type.name}`;
-                    tipoSpan.textContent = tiposTraducidos[tipo.type.name];
-                    contenedorTipos.appendChild(tipoSpan);
-                });
 
-                const contenedorImagen = document.getElementById('contenedor-imagen');
-                contenedorImagen.innerHTML = '';
-                const imagen = document.createElement('img');
-                imagen.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${datos.id}.png`;
-                imagen.alt = datos.name;
-                imagen.style.maxWidth = '300px';
-                imagen.style.height = 'auto';
-                contenedorImagen.appendChild(imagen);
-
-                contenedorResultados.style.display = 'block';
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert(error.message);
             });
     }
+
+    function crearPaginaNueva(datos) {
+        window.open('pokemon.html')
+        mostrarDatos(datos)
+
+    }
+
 
 
     // Eventos
