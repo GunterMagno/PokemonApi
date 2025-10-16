@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     } else if (document.title === 'Información Pokemon') {
-        console.log(document.title)
+
         const busqueda = sessionStorage.getItem("busqueda");
         document.title = `Información de ${busqueda}`
 
@@ -233,10 +233,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById('dato-nombre').textContent = `Nombre: ${datos.name.charAt(0).toUpperCase() + datos.name.slice(1)}`;
                 document.getElementById('dato-altura').textContent = `Altura: ${datos.height / 10}m`;
                 document.getElementById('dato-peso').textContent = `Peso: ${datos.weight / 10}kg`;
-                document.getElementById('dato-habilidades').textContent = `Habilidades: ${datos.abilities}`;
 
                 const contenedorTipos = document.getElementById('dato-tipos');
-                contenedorTipos.innerHTML = 'Tipos: ';
 
                 datos.types.forEach(tipo => {
                     const tipoSpan = document.createElement('span');
@@ -244,6 +242,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     tipoSpan.textContent = tiposTraducidos[tipo.type.name];
                     contenedorTipos.appendChild(tipoSpan);
                 });
+
+                const contenedorStats = document.getElementById('datos-stats');
+
+                datos.stats.forEach(s => {
+                    const statli = document.createElement('li');
+                    statli.className = `stat ${s.stat.name}`
+                    statli.textContent = s.stat.name[0].toUpperCase() + s.stat.name.slice(1) + ': ' + s.base_stat;
+                    contenedorStats.appendChild(statli);
+                })
+
+                /*datos.stats.map(s => ({
+                    name: s.stat.name,
+                    base_stat: s.base_stat,
+                    effort: s.effort
+                }))*/
 
                 const contenedorImagen = document.getElementById('contenedor-imagen');
                 contenedorImagen.innerHTML = '';
