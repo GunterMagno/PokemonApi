@@ -251,13 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     statli.textContent = s.stat.name[0].toUpperCase() + s.stat.name.slice(1) + ': ' + s.base_stat;
                     contenedorStats.appendChild(statli);
                 })
-
-                /*datos.stats.map(s => ({
-                    name: s.stat.name,
-                    base_stat: s.base_stat,
-                    effort: s.effort
-                }))*/
-
+                
                 const contenedorImagen = document.getElementById('contenedor-imagen');
                 contenedorImagen.innerHTML = '';
                 const imagen = document.createElement('img');
