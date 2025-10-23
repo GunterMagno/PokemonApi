@@ -185,8 +185,13 @@ document.addEventListener("DOMContentLoaded", () => {
             imagen.style.height = 'auto';
             imagen.style.cursor = 'pointer';
             contenedorImagen.appendChild(imagen);
-
             contenedorResultados.style.display = 'block';
+
+            //Nueva actualización
+            imagen.addEventListener('click', () => {
+                sessionStorage.setItem("busqueda", datos.name);
+                window.open('pokemon.html')
+            })
         }
 
         // Mostrar Pokémon seleccionado
@@ -200,14 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(datos => {
                     mostrarDatos(datos)
-
-                    //Nueva actualización
-                    const contenedorImagen = document.getElementById('contenedor-imagen');
-                    contenedorImagen.addEventListener('click', () => {
-                        sessionStorage.setItem("busqueda", nombrePokemon);
-                        window.open('pokemon.html')
-                    })
-
 
                 })
                 .catch(error => {
@@ -229,6 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return response.json();
             })
             .then(datos => {
+                document.getElementById('dato-id').textContent = `NºPokedex: ${datos.id}`;
                 document.getElementById('nombre-pokemon').textContent = `Pokémon: ${datos.name.toUpperCase()}`;
                 document.getElementById('dato-nombre').textContent = `Nombre: ${datos.name.charAt(0).toUpperCase() + datos.name.slice(1)}`;
                 document.getElementById('dato-altura').textContent = `Altura: ${datos.height / 10}m`;
@@ -251,16 +249,39 @@ document.addEventListener("DOMContentLoaded", () => {
                     statli.textContent = s.stat.name[0].toUpperCase() + s.stat.name.slice(1) + ': ' + s.base_stat;
                     contenedorStats.appendChild(statli);
                 })
+
+
                 
                 const contenedorImagen = document.getElementById('contenedor-imagen');
                 contenedorImagen.innerHTML = '';
                 const imagen = document.createElement('img');
                 imagen.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${datos.id}.png`;
                 imagen.alt = datos.name;
-                imagen.style.maxWidth = '300px';
+                imagen.style.width = '300px';
                 imagen.style.height = 'auto';
-                imagen.style.cursor = 'pointer';
                 contenedorImagen.appendChild(imagen);
+
+                const imagen2 = document.createElement('img');
+                imagen2.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${datos.id}.gif`;
+                imagen2.alt = datos.name;
+                imagen2.style.width = '300px';
+                imagen2.style.height = 'auto';
+                contenedorImagen.appendChild(imagen2);
+
+                const imagen3 = document.createElement('img');
+                imagen3.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${datos.id}.png`;
+                imagen3.alt = datos.name;
+                imagen3.style.width = '300px';
+                imagen3.style.height = 'auto';
+                contenedorImagen.appendChild(imagen3);
+
+
+                const imagen4 = document.createElement('img');
+                imagen4.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/shiny/${datos.id}.gif`;
+                imagen4.alt = datos.name;
+                imagen4.style.width = '300px';
+                imagen4.style.height = 'auto';
+                contenedorImagen.appendChild(imagen4);
 
             })
             .catch(error => {
